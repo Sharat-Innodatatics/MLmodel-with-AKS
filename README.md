@@ -10,4 +10,5 @@ Learn to build Data Pipeline and Machine Learning Model Deployment via container
 👌 It is surprisingly easy to work with Azure Cloud Registry and AKS services for ML model deployment and End-point creation with External IP.
 
 Let me know via comments if there is any step that you feel is difficult.
-video can be viewed on 360DigiTMG YouTube Channel
+
+Video explanation can be viewed on 360DigiTMG YouTube Channel.
