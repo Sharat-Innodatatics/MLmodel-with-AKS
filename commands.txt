@@ -1,0 +1,58 @@
+Step1: Create a Resource Group
+> az group create --name cars-mlr --location eastus
+
+Step2: Create azure container registry
+> az acr create --name carsvm --resource-group cars-mlr --sku Basic
+
+-----------
+acr25dec
+acr25dec.azurecr.io
+username: 
+pwd: 
+pwd2:
+----------
+
+Step3: Create Kubernetes cluster
+> az aks create --resource-group cars-mlr --name car_cluster --node-count 1 --generate-ssh-keys --attach-acr carsvm
+
+Step4: Accessing the resources
+> az aks get-credentials --name car_cluster --resource-group cars-mlr 
+
+
+Step5: Logging into acr using docker - use the username and password from the Azure container registry dashboard
+> docker login carsvm.azurecr.io
+
+Step6: Tagging docker image into acr
+ex: docker tag <docker image> <acr Login server/any name>
+
+> docker tag car2 carsvm.azurecr.io/car_vm
+
+Step7: Checking tag image in docker images
+> docker images 
+
+Step8: Pushing docker image to acr using docker tag image
+> docker push carsvm.azurecr.io/car_vm
+
+Step9: Deploy using .yaml file
+> kubectl apply -f cars-azure.yaml
+
+Step10: To see the status of the deployment
+> kubectl get pods
+> kubectl get services
+> kubectl get pods, svc -o wide
+
+Step11: Add endpoint to external port to see the result
+> externalpoint:port
+
+ex: 
+http://20.204.187.46:5000
+
+
+Delete the resources:
+az group delete --name myResourceGroup --yes --no-wait
+
+az group delete --resource-group cars-mlr
+
+
+
+
